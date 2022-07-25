@@ -23,8 +23,6 @@ router.post('/', async function (req, res) {
   let data = req.body;
 //  console.log(JSON.parse(data))
   console.log(data)
-  console.log(data.action)
-  console.log(data.dbname)
   let resp = await insertTenant(data.tenant, data.tier, data.base_domain, data.action, data.email);
 //  let resp = await insertTenant(data.tenant, data.action, data.dbname, data.user, data.base_domain, data.email);
   console.log(resp)
