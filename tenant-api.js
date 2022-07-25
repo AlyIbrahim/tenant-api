@@ -23,7 +23,10 @@ router.post('/', async function (req, res) {
   let data = req.body;
 //  console.log(JSON.parse(data))
   console.log(data)
-  let resp = await insertTenant(data.name, data.tier, data.base_domain);
+  console.log(data.action)
+  console.log(data.dbname)
+  let resp = await insertTenant(data.tenant, data.tier, data.base_domain, data.action, data.email);
+//  let resp = await insertTenant(data.tenant, data.action, data.dbname, data.user, data.base_domain, data.email);
   console.log(resp)
   res.send(resp)
 })
@@ -31,7 +34,7 @@ router.post('/', async function (req, res) {
 router.put('/', async function (req, res) {
   let data = req.body;
   console.log(data)
-  let resp = await updateTenant(data.name, data.tier, data.base_domain);
+  let resp = await updateTenant(data.name, data.tier, data.base_domain, action, email);
   console.log(resp)
   res.send(resp)
 
@@ -48,7 +51,7 @@ router.delete('/', async function (req, res) {
 
 
 
-const insertTenant = async (name, tier, base_domain) => {
+const insertTenant = async (name, tier, base_domain, action, email) => {
   const params = {
     TableName: table,
     Item: {
@@ -56,7 +59,9 @@ const insertTenant = async (name, tier, base_domain) => {
       user: name,
       tier: tier,
       dbname: name,
-      base_domain: base_domain
+      base_domain: base_domain,
+      action: action,
+      email: email
     },
   };
   try {
